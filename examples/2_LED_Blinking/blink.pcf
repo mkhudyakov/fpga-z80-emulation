@@ -1,0 +1,2 @@
+set_io clk 35     # 12 MHz external oscillator
+set_io led 39     # green LED (P39)

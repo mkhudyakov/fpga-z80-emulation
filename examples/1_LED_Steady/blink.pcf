@@ -1,0 +1,5 @@
+set_io clk 35
+
+set_io red   40
+set_io green 41
+set_io blue  39

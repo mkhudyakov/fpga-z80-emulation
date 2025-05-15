@@ -1,0 +1,34 @@
+module uart_tx #(
+    parameter CLOCKS_PER_BAUD = 104  // For 115200 baud at 12 MHz
+)(
+    input clk,
+    input [7:0] tx_data,
+    input tx_start,
+    output reg tx
+);
+    reg [9:0] shift = 10'b1111111111;
+    reg [6:0] baud_cnt = 0;
+    reg [3:0] bit_cnt = 0;
+    reg active = 0;
+
+    always @(posedge clk) begin
+        if (!active && tx_start) begin
+            shift <= {1'b1, tx_data, 1'b0};  // Stop, 8 data, Start
+            active <= 1;
+            baud_cnt <= 0;
+            bit_cnt <= 0;
+        end else if (active) begin
+            baud_cnt <= baud_cnt + 1;
+            if (baud_cnt == CLOCKS_PER_BAUD - 1) begin
+                baud_cnt <= 0;
+                tx <= shift[0];
+                shift <= {1'b1, shift[9:1]};
+                bit_cnt <= bit_cnt + 1;
+                if (bit_cnt == 9)
+                    active <= 0;
+            end
+        end else begin
+            tx <= 1;
+        end
+    end
+endmodule
