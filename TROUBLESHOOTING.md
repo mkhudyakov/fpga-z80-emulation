@@ -1,4 +1,4 @@
-https://github.com/wuxx/icesugar
+https://github.com/wuxx/icesugar/blob/master/README_en.md
 
 ```
 lsusb -v -d 1d50:602b | grep -E 'iProduct|iManufacturer|iSerial'

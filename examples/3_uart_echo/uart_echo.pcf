@@ -1,0 +1,11 @@
+# Clock input (12 MHz oscillator)
+set_io --warn-no-port clk 35
+
+# UART RX (FPGA receives data)
+set_io --warn-no-port uart_rx_i 4
+
+# UART TX (FPGA transmits data)
+set_io --warn-no-port uart_tx_o 6
+
+# Optional status LED
+set_io --warn-no-port LED 39
